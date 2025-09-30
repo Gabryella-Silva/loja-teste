@@ -15,3 +15,7 @@ header{
     text-align: center;
     padding: 15px;
 }
+
+footer{
+    @extend %footer-main;
+}

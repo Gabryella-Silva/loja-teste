@@ -18,5 +18,29 @@ produtos.forEach(produto =>{
     <img src="${produto.imagem}" alt="${produto.nome}" class="produto-img">
     <h3>${produto.nome} </h3>
     <p> ${produto.preco.toFixed(2)} </p>
-    `
+    <button class = "btn-add" data-id ="${produto.id}" > Adicionar </button>
+    `;
+
+    produtosContainer.appendChild(card);
+});
+
+//adicionado itens no carrrinho
+document.addEventListener("click", (e) => {
+    if (e.target.classList.contains("btn-add")) {
+        const id = parseInt(e.target.dataset.id);
+        const produto = produtos.find(p => p.id === id);
+
+        let carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
+        carrinho.push(produto);
+        localStorage.setItem("carrinho" , JSON.stringify(carrinho))
+
+        //mensagem temporaria
+
+        const mensagem = document.createElement("div");
+        mensagem.classList.add("mensagem");
+        mensagem.textContent = `${produto.nome} Adicionado ao carrinho! `;
+        document.body.appendChild(mensagem);
+
+        setTimeout (() => mensagem.remove (), 2000);
+    }
 })
